@@ -14,7 +14,8 @@ namespace Nu11ity
 
         public void StartNewGame()
         {
-            StartCoroutine(WorldSaveGameManager.Instance.LoadNewGame());
+            WorldSaveGameManager.Instance.CreateNewGame();
+            StartCoroutine(WorldSaveGameManager.Instance.LoadWorldScene());
         }
     }
 }
