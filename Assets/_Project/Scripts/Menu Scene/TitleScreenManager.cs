@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Nu11ity
 {
-    public class TitleScreenManager : MonoBehaviour
+    public class TitleScreenManager : Singleton<TitleScreenManager>
     {
         [Header("Menus")]
         [SerializeField] GameObject titleScreenMainMenu;
@@ -15,6 +15,11 @@ namespace Nu11ity
         [Header("Buttons")]
         [SerializeField] Button loadMenuReturnButton;
         [SerializeField] Button mainMenuLoadGameButton;
+        [SerializeField] Button mainMenuNewGameButton;
+
+        [Header("Pop Ups")]
+        [SerializeField] GameObject noCharacterSlotsPopUp;
+        [SerializeField] Button noCharacterSlotsOkayButton;
 
         public void StartNetworkAsHost()
         {
@@ -23,8 +28,7 @@ namespace Nu11ity
 
         public void StartNewGame()
         {
-            WorldSaveGameManager.Instance.CreateNewGame();
-            StartCoroutine(WorldSaveGameManager.Instance.LoadWorldScene());
+            WorldSaveGameManager.Instance.AttemptToCreateNewGame();
         }
 
         public void OpenLoadGameMenu()
@@ -49,6 +53,18 @@ namespace Nu11ity
 
             // SELECT THE LOAD BUTTON FIRST
             mainMenuLoadGameButton.Select();
+        }
+
+        public void DisplayNoFreeCharacterSlotsPopUp()
+        {
+            noCharacterSlotsPopUp.SetActive(true);
+            noCharacterSlotsOkayButton.Select();
+        }
+
+        public void CloseNoFreeCharactersSlotsPopUp()
+        {
+            noCharacterSlotsPopUp.SetActive(false);
+            mainMenuNewGameButton.Select();
         }
     }
 }
