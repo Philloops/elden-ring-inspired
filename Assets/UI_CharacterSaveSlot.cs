@@ -20,6 +20,7 @@ namespace Nu11ity
         {
             LoadSaveSlots();
         }
+
         private void LoadSaveSlots()
         {
             saveFileWriter = new SaveFileDataWriter();
@@ -185,6 +186,12 @@ namespace Nu11ity
                     gameObject.SetActive(false);
                 }
             }
+        }
+
+        public void LoadGameFromCharacterSlot()
+        {
+            WorldSaveGameManager.Instance.currentCharacterSlotBeingUsed = characterSlot;
+            WorldSaveGameManager.Instance.LoadGame();
         }
     }
 }
