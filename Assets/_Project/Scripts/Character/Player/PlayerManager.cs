@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Nu11ity
 {
@@ -71,6 +72,7 @@ namespace Nu11ity
 
         public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currentCharacterData)
         {
+            currentCharacterData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
             currentCharacterData.characterName = playerNetworkManager.characterName.Value.ToString();
             currentCharacterData.xPosition = transform.position.x;
             currentCharacterData.yPosition = transform.position.y;

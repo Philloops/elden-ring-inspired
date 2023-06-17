@@ -16,10 +16,15 @@ namespace Nu11ity
         [SerializeField] Button loadMenuReturnButton;
         [SerializeField] Button mainMenuLoadGameButton;
         [SerializeField] Button mainMenuNewGameButton;
+        [SerializeField] Button deleteCharacterPopUpConfirmButton;
 
         [Header("Pop Ups")]
         [SerializeField] GameObject noCharacterSlotsPopUp;
         [SerializeField] Button noCharacterSlotsOkayButton;
+        [SerializeField] GameObject deleteCharacterSlotPopUp;
+
+        [Header("Character Slots")]
+        public CharacterSlot currentSelectedSlot = CharacterSlot.NO_SLOT;
 
         public void StartNetworkAsHost()
         {
@@ -65,6 +70,45 @@ namespace Nu11ity
         {
             noCharacterSlotsPopUp.SetActive(false);
             mainMenuNewGameButton.Select();
+        }
+
+        // CHARACTER SLOTS  
+
+        public void SelectCharacterSlot(CharacterSlot characterSlot)
+        {
+            currentSelectedSlot = characterSlot;
+        }
+
+        public void SelectNoSlot()
+        {
+            currentSelectedSlot = CharacterSlot.NO_SLOT;
+        }
+
+        public void AttemptToDeleteCharacterSlot()
+        {
+            if(currentSelectedSlot != CharacterSlot.NO_SLOT)
+            {
+                deleteCharacterSlotPopUp.SetActive(true);
+                deleteCharacterPopUpConfirmButton.Select();
+            }
+        }
+
+        public void DeleteCharacterSlot()
+        {
+            deleteCharacterSlotPopUp.SetActive(false);
+            WorldSaveGameManager.Instance.DeleteGame(currentSelectedSlot);
+
+            // WE REFRESH THE SLOTS AFTER DELETION
+            titleScreenLoadMenu.SetActive(false);
+            titleScreenLoadMenu.SetActive(true);
+
+            loadMenuReturnButton.Select();
+        }
+
+        public void CloseDeleteCharacterPopUp()
+        {
+            deleteCharacterSlotPopUp.SetActive(false);
+            loadMenuReturnButton.Select();
         }
     }
 }
