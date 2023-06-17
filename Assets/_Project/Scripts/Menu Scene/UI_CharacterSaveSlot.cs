@@ -193,5 +193,10 @@ namespace Nu11ity
             WorldSaveGameManager.Instance.currentCharacterSlotBeingUsed = characterSlot;
             WorldSaveGameManager.Instance.LoadGame();
         }
+
+        public void SelectCurrentSlot()
+        {
+            TitleScreenManager.Instance.SelectCharacterSlot(characterSlot);
+        }
     }
 }
